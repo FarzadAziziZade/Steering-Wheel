@@ -50,8 +50,8 @@ void loop()
 
   if (counter % 10 == 0)
   {
-    Serial.println("\n\tACCELEROMETER\t\tGYROSCOPE\t\tTEMPERATURE\t\tACCELEROMETER 2\t\tMAG");
-    Serial.println("\tax\tay\taz\tgx\tgy\tgz\tT\tax2\tay2\taz2\tmaggx\tmaggy\tmaggz");
+    Serial.println("\n\tACCELEROMETER\t\tGYROSCOPE\t\tTEMPERATURE\t\tACCELEROMETER 2\t\tMAGNETOMETER");
+    Serial.println("\tax\tay\taz\tgx\tgy\tgz\tT\t\t\tax2\tay2\taz2\tmagx\tmagy\tmagz");
   }
 
 
@@ -71,6 +71,8 @@ void loop()
   Serial.print('\t');
   Serial.print(t);
   Serial.print('\t');
+  Serial.print('\t');
+  Serial.print('\t');
   Serial.print(compass.a.x);
   Serial.print('\t');
   Serial.print(compass.a.y);
@@ -84,6 +86,7 @@ void loop()
   Serial.print(compass.m.z);
   Serial.println();
   counter++;
+
   
   delay(100);
 }
