@@ -25,7 +25,7 @@ void setup()
   pinMode(p5, OUTPUT);
   pinMode(p6, OUTPUT);
 
-  //Serial.begin(115200);
+  Serial.begin(115200);
   Wire.begin();
   compass.init();
   compass.enableDefault();
@@ -40,7 +40,7 @@ void setup()
 void loop()
 {
   compass.read();
-delay(100);
+delay(150);
   Wire.beginTransmission(MPU_ADDR);
   Wire.write(0x3B); // starting with register 0x3B (ACCEL_XOUT_H) [MPU-6000 and MPU-6050 Register Map and Descriptions Revision 4.2, p.40]
   Wire.endTransmission(false); // the parameter indicates that the Arduino will send a restart. As a result, the connection is kept active.
@@ -98,19 +98,19 @@ delay(100);
   ay_percent = 100*((abs(float(accelerometer_y) - 13500)) / (27000));
   ax2_percent = 100*((float(compass.a.x) + 15600) / (31200));
 
-//  Serial.print(ay_percent);
-//  Serial.print('\t');
-//  Serial.print(ax2_percent);
-//  Serial.print('\t');
-//  Serial.print(abs(ay_percent - ax2_percent));
-//  Serial.println();
+  Serial.print(ay_percent);
+  Serial.print('\t');
+  Serial.print(ax2_percent);
+  Serial.print('\t');
+  Serial.print(abs(ay_percent - ax2_percent));
+  Serial.println();
 
 
   if (ay_percent > ax2_percent) {
     //left
 
     if (abs(ay_percent - ax2_percent) > 5) {
-      if (ay_percent > 8) {
+      if (ay_percent > 1) {
         digitalWrite(p5, HIGH);
         digitalWrite(p6, LOW);
         delay(50);
@@ -122,7 +122,7 @@ delay(100);
 
   if (ay_percent < ax2_percent) {
     //right
-    if (ay_percent < 92) {
+    if (ay_percent < 99) {
       if (abs(ay_percent - ax2_percent) > 5) {
         digitalWrite(p6, HIGH);
         digitalWrite(p5, LOW);
